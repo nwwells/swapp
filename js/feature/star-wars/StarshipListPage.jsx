@@ -22,7 +22,8 @@ export default class StarshipListPage extends DataDrivenComponent {
 
 	render () {
 		var starships = this.getData('starships')
-		var filter_text = this.getData('filter_text') || "";
+		var less_than = +this.getData('less_than') || 10000000000000;
+		var greater_than = +this.getData('greater_than') || 0;
 		var sort = this.getData('sort') || "name";
 
 		if (starships) {
@@ -30,7 +31,7 @@ export default class StarshipListPage extends DataDrivenComponent {
 					return sort === "cost_in_credits" ? +ship[sort] : ship[sort];
 				})
 				.filter( ship => {
-					return JSON.stringify(ship).indexOf(filter_text) !== -1;
+					return +ship.cost_in_credits > greater_than && +ship.cost_in_credits < less_than;
 				})
 				.map( ship => {
 				return <tr key={ship.url}>
@@ -45,10 +46,16 @@ export default class StarshipListPage extends DataDrivenComponent {
 			</tr>
 		}
 		return <div>
+
 			<TextField 
-				floatingLabelText="filter"
-				{ ...this.bindValue('filter_text') } />
+				floatingLabelText="greater than"
+				{ ...this.bindValue('greater_than') } />
+			<TextField 
+				floatingLabelText="less than"
+				{ ...this.bindValue('less_than') } />
+
 			<table>
+
 				<thead>
 					<tr>
 						<th data-sort="name">Name</th>
