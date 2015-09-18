@@ -25,6 +25,7 @@
     "lodash": "3.10.1",
     "material-ui": "0.11.1",
     "react": "0.13.3",
-    "react-tap-event-plugin": "0.1.7"
+    "react-tap-event-plugin": "0.1.7",
+    "superagent": "1.4.0"
   }
 }

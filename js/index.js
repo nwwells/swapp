@@ -3,6 +3,8 @@
 import emit from './lib/events/Emit';
 import addDomEvents from './lib/events/AddDomEvents';
 
+import request from 'superagent';
+
 import router from './lib/navigation/Router';
 // import StarWarsController from './feature/star-wars/StarWarsController';
 
@@ -10,7 +12,7 @@ import render from './lib/render/Render';
 import Header from './feature/header/Header.jsx';
 import React from 'react';
 
-import data from './lib/data/Store';
+import store from './lib/data/Store';
 
 import {
 	uuid,
@@ -43,8 +45,18 @@ function init () {
 
 	render({
 		selector: '.page_header',
-		template: React.createElement(Header, {data: data})
+		template: React.createElement(Header, {store: store})
 	});
+
+	request.
+		get('http://swapi.co/api/starships/').
+		end((err, response) => {
+			emit({
+				type: 'response',
+				target: response
+			});
+		});
+
 }
 
 function cleanup () {
@@ -97,10 +109,19 @@ let knownTypes = [
 	"beforecopy", "copy", "paste", "change", "submit", "select",
 	"selectstart", "selectionchange", "focus", "blur", "focusin",
 	"focusout", "readystatechange", "load", "deviceorientation", "devicemotion",
-	"contextmenu", "fb-flo-reload", "packet"
+	"contextmenu", "fb-flo-reload", "packet", "response"
 ];
 stream
 	.filter(e => !~knownTypes.indexOf(e.type))
 	.forEach(failSafe(e => console.log(`Unknown event [${e.type}]:`, e)));
+
+stream
+	.filter(e => e.type === "response")
+	.forEach(failSafe(e => {
+		console.log(e);
+		// TODO should error-handle at some point!
+		store.set('starship_page', e.target.body);
+
+	}))
 
 
