@@ -115,6 +115,9 @@ stream
 	.filter(e => !~knownTypes.indexOf(e.type))
 	.forEach(failSafe(e => console.log(`Unknown event [${e.type}]:`, e)));
 
+
+////////////////////////////////
+// handle data from the server
 stream
 	.filter(e => e.type === "response")
 	.forEach(failSafe(e => {
@@ -150,5 +153,18 @@ stream
 		store.set(path, value);
 		render();
 	}));
+
+/////////////////////
+// handle clicks
+//
+stream
+	.filter(e => e.type === "click")
+	.forEach(failSafe(e => {
+		var sortingEl = findAncestorMatching(e.target, "[data-sort]");
+		if (!sortingEl) { return; }
+		store.set('sort', sortingEl.getAttribute("data-sort"));
+		render();
+	}));
+
 
 
