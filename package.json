@@ -1,0 +1,29 @@
+{
+  "name": "start-wars",
+  "version": "1.0.0",
+  "description": "A template for building a React app for the KualiCo coding test.",
+  "main": "index.js",
+  "scripts": {
+    "watch": "webpack -w"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/KualiCo/student-coding-test.git"
+  },
+  "author": "Jamison Dance <jamison@kuali.co>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/KualiCo/student-coding-test/issues"
+  },
+  "homepage": "https://github.com/KualiCo/student-coding-test#readme",
+  "devDependencies": {
+    "babel-core": "5.8.23",
+    "babel-loader": "5.3.2",
+    "webpack": "1.12.1"
+  },
+  "dependencies": {
+    "material-ui": "0.11.1",
+    "react": "0.13.3",
+    "react-tap-event-plugin": "0.1.7"
+  }
+}
