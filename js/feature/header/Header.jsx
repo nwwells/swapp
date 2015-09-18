@@ -1,10 +1,21 @@
 'use strict'
 
 import React from 'react';
-
+import { AppBar } from 'material-ui';
+import ThemeManager from '../../lib/material/ThemeManager';
 
 export default class Header extends React.Component {
+
+	getChildContext () {
+		return { muiTheme: ThemeManager.getCurrentTheme() };
+	}
+
 	render () {
-		return <div>Hello Header!</div>
+		return <AppBar title="Hello Header!"></AppBar>
 	}
 }
+
+Header.childContextTypes = {
+	muiTheme: React.PropTypes.object
+};
+
