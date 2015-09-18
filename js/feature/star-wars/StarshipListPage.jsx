@@ -3,8 +3,16 @@
 import React from 'react';
 import DataDrivenComponent from '../../lib/data/DataDrivenComponent';
 import ThemeManager from '../../lib/material/ThemeManager';
+import { TextField } from 'material-ui';
 
 export default class StarshipListPage extends DataDrivenComponent {
+
+	bindValue (path) {
+		return {
+			"defaultValue": this.getData(path),
+			"data-bind": path
+		};
+	}
 
 	getChildContext () {
 		return { muiTheme: ThemeManager.getCurrentTheme() };
@@ -26,7 +34,12 @@ export default class StarshipListPage extends DataDrivenComponent {
 				<td>Loading...</td>
 			</tr>
 		}
-		return <table>{rows}</table>
+		return <div>
+			<TextField 
+				floatingLabelText="filter"
+				{ ...this.bindValue('filterText') } />
+			<table>{rows}</table>
+		</div>
 
 	}
 }

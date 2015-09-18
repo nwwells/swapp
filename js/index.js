@@ -137,4 +137,18 @@ stream
 		render();
 	}))
 
+/////////////////////
+// handle text inputs
+//
+stream
+	.filter(e => e.type === "change" || e.type === "input")
+	.forEach(failSafe(e => {
+		var bindingEl = findAncestorMatching(e.target, "[data-bind]");
+		if (!bindingEl) { return; }
+		var path = bindingEl.getAttribute("data-bind");
+		var value = e.target.value;
+		store.set(path, value);
+		render();
+	}));
+
 
