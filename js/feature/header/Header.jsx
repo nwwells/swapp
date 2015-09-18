@@ -11,7 +11,7 @@ export default class Header extends React.Component {
 	}
 
 	render () {
-		return <AppBar title="Hello Header!"></AppBar>
+		return <AppBar title="Hello Header!" showMenuIconButton={false}></AppBar>
 	}
 }
 
