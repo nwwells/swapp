@@ -6,7 +6,7 @@ import addDomEvents from './lib/events/AddDomEvents';
 import request from 'superagent';
 
 import router from './lib/navigation/Router';
-// import StarWarsController from './feature/star-wars/StarWarsController';
+import StarWarsController from './feature/star-wars/StarWarsController';
 
 import render from './lib/render/Render';
 import Header from './feature/header/Header.jsx';
@@ -119,9 +119,22 @@ stream
 	.filter(e => e.type === "response")
 	.forEach(failSafe(e => {
 		console.log(e);
-		// TODO should error-handle at some point!
-		store.set('starship_page', e.target.body);
-
+		var ships = store.get('starships') || [];
+		ships = ships.concat(e.target.body.results)
+		store.set('starships', ships);
+		//recursively get more ships
+		if (e.target.body.next) {
+			request.
+				get(e.target.body.next).
+				end((err, response) => {
+					emit({
+						type: 'response',
+						target: response
+					});
+				});
+		}
+		console.log(e.target.body);
+		render();
 	}))
 
 
