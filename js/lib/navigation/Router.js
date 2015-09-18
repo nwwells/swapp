@@ -25,7 +25,7 @@ function interpolateRouteArguments (route, args) {
 	}
 	args = args || {};
 
-	forEach(function (value, key) {
+	forEach(args, function (value, key) {
 		// NOTE: If performance is an issue, we could cache these regex for
 		// each route/param combo.
 		var optReg = new RegExp(OPTIONAL_PARAM.replace('__key__', key), 'g');

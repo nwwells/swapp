@@ -8,6 +8,7 @@ import request from 'superagent';
 import router from './lib/navigation/Router';
 import StarWarsController from './feature/star-wars/StarWarsController';
 
+import navigate from './lib/navigation/Navigate';
 import render from './lib/render/Render';
 import Header from './feature/header/Header.jsx';
 import React from 'react';
@@ -157,14 +158,29 @@ stream
 /////////////////////
 // handle clicks
 //
+// sorting
 stream
-	.filter(e => e.type === "click")
+	.filter(e => e.type === "click" && e.target.hasAttribute('data-sort'))
 	.forEach(failSafe(e => {
-		var sortingEl = findAncestorMatching(e.target, "[data-sort]");
-		if (!sortingEl) { return; }
-		store.set('sort', sortingEl.getAttribute("data-sort"));
+		store.set('sort', e.target.getAttribute("data-sort"));
 		render();
 	}));
 
+// navigation
+stream
+	.filter(e => {
+		return e.type === "click" && 
+			e.target.tagName.toLowerCase() === 'a' &&
+			e.target.hasAttribute('data-action');
+	})
+	.forEach(failSafe(e => {
+		e.preventDefault();
+		navigate({
+			action: e.target.getAttribute('data-action'),
+			args: {
+				id: e.target.getAttribute('data-args')
+			}
+		});
+	}));
 
 

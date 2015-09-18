@@ -36,8 +36,11 @@ export default class StarshipListPage extends DataDrivenComponent {
 				if (ship.cost_in_credits === "unknown") return true;
 				return +ship.cost_in_credits > greater_than && +ship.cost_in_credits < less_than;
 			}).map( ship => {
-				return <tr key={ship.url}>
-					<td>{ship.name}</td>
+				var id = /\/([0-9]+)\/$/.exec(ship.url)[1];
+				return <tr key={id}>
+					<td>
+						<a href={"/ship/" + id} data-action="StarWars.SHOW" data-args={id}>{ship.name}</a>
+					</td>
 					<td>{ship.cost_in_credits}</td>
 				</tr>
 			});
