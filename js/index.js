@@ -7,7 +7,7 @@ import router from './lib/navigation/Router';
 // import StarWarsController from './feature/star-wars/StarWarsController';
 
 import render from './lib/render/Render';
-// import Header from './feature/header/Header.jsx';
+import Header from './feature/header/Header.jsx';
 import React from 'react';
 
 import data from './lib/data/Store';
@@ -41,10 +41,10 @@ function init () {
 		pushState:   true
 	});
 
-	// render({
-	// 	selector: '.page_header',
-	// 	template: React.createElement(Header, {data: data})
-	// });
+	render({
+		selector: '.page_header',
+		template: React.createElement(Header, {data: data})
+	});
 }
 
 function cleanup () {
