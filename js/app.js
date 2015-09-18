@@ -1,4 +1,5 @@
 import React from 'react'
+import stuff from './index';
 
 const StartWars = React.createClass({
   render() {

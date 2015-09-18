@@ -10,7 +10,7 @@
     "type": "git",
     "url": "git+https://github.com/KualiCo/student-coding-test.git"
   },
-  "author": "Jamison Dance <jamison@kuali.co>",
+  "author": "Nathan Wells <nwwells@gmail.com>",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/KualiCo/student-coding-test/issues"
@@ -22,6 +22,7 @@
     "webpack": "1.12.1"
   },
   "dependencies": {
+    "lodash": "3.10.1",
     "material-ui": "0.11.1",
     "react": "0.13.3",
     "react-tap-event-plugin": "0.1.7"
